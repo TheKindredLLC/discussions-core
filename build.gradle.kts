@@ -1,5 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.3.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.spotless)
     `java-library`
     `maven-publish`
     signing
@@ -12,15 +14,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-dependencies {
-    api("com.benasher44:uuid:0.0.26")
-    testImplementation(kotlin("test"))
-}
-
 kotlin {
     jvmToolchain(25)
 }
@@ -30,8 +23,32 @@ java {
     withJavadocJar()
 }
 
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom(layout.projectDirectory.file("detekt.yml"))
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint("1.8.0")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.named("check") {
+    dependsOn("detekt")
+    dependsOn("spotlessCheck")
+}
+
+dependencies {
+    testImplementation(kotlin("test"))
 }
 
 publishing {
