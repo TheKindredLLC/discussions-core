@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.detekt)
     alias(libs.plugins.spotless)
     `java-library`
@@ -48,6 +49,9 @@ tasks.named("check") {
 }
 
 dependencies {
+
+    implementation(libs.kotlinx.serialization)
+
     testImplementation(kotlin("test"))
 }
 
