@@ -24,3 +24,6 @@ jobs:
 
       - name: Build & Verify
         run: ./gradlew clean check build
+        env:
+            ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.ossrhUsername }}
+            ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.secrets.ossrhPassword }}
