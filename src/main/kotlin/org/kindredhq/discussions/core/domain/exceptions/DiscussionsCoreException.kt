@@ -1,8 +1,10 @@
 package org.kindredhq.discussions.core.domain.exceptions
 
+
+
 /**
- * Base exception type for all errors originating from the
- * discussions core domain.
+ * Base exception for all domain-level failures originating from
+ * the discussions core library.
  *
  * This exception represents domain-level failures and is intended
  * to be extended by more specific exception types such as
@@ -19,7 +21,7 @@ package org.kindredhq.discussions.core.domain.exceptions
  * @param message Human-readable description of the failure.
  * @param cause Optional underlying cause of the failure.
  */
-open class DiscussionsCoreException(
+public open class DiscussionsCoreException(
     message: String,
     cause: Throwable? = null,
 ) : RuntimeException(message, cause)

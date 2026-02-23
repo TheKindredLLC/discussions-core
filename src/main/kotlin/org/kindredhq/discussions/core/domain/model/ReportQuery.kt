@@ -1,9 +1,10 @@
 package org.kindredhq.discussions.core.domain.model
 
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import kotlinx.serialization.Serializable
 import org.kindredhq.discussions.core.domain.enums.ReportStatus
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
+import kotlinx.serialization.SerialName
 
 /**
  * Defines filter criteria for querying [Report] entities.
@@ -13,12 +14,13 @@ import org.kindredhq.discussions.core.domain.enums.ReportStatus
  * should not be applied.
  *
  * Pagination and ordering semantics are implementation-defined.
+ * Offset-based pagination, cursor pagination, and ordering strategies are not defined by this model.
  */
 @Serializable
 @OptIn(ExperimentalUuidApi::class)
-data class ReportQuery(
-    val discussionId: Uuid? = null,
-    val createdBy: String? = null,
-    val statuses: Set<ReportStatus>? = null,
-    val limit: Int? = null,
+public data class ReportQuery(
+    @SerialName("target_id") val targetId: Uuid? = null,
+    @SerialName("created_by") val createdBy: String? = null,
+    @SerialName("statuses") val statuses: Set<ReportStatus>? = null,
+    @SerialName("limit") val limit: Int? = null,
 )

@@ -1,8 +1,9 @@
 package org.kindredhq.discussions.core.dto.request
 
+import kotlinx.serialization.Serializable
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
 /**
  * Request payload for creating a new [Discussion].
@@ -26,8 +27,9 @@ import kotlinx.serialization.Serializable
  * Authentication and authorization are not enforced by this library.
  *
  * ### Validation
- * Field constraints such as body length, language format, and existence
- * of parent or target entities must be enforced by the implementing service.
+ * Structural validation (e.g., body length or required fields) is performed by [DiscussionValidator].
+ * Cross-entity validation, authorization checks, and existence checks for parent or target entities are the
+ * responsibility of the implementing service.
  *
  * @property targetId Optional identifier of the external entity this discussion is associated with.
  * @property parentId Optional identifier of the parent discussion if this is a reply.
@@ -37,10 +39,10 @@ import kotlinx.serialization.Serializable
  */
 @OptIn(ExperimentalUuidApi::class)
 @Serializable
-data class DiscussionCreateRequest(
-    val targetId: Uuid? = null,
-    val parentId: Uuid? = null,
-    val userId: String,
-    val body: String,
-    val language: String? = null,
+public data class DiscussionCreateRequest(
+    @SerialName("target_id") val targetId: Uuid? = null,
+    @SerialName("parent_id") val parentId: Uuid? = null,
+    @SerialName("user_id") val userId: String,
+    @SerialName("body") val body: String,
+    @SerialName("language") val language: String? = null,
 )

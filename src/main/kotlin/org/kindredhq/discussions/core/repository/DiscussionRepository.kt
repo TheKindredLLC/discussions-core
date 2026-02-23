@@ -1,12 +1,13 @@
 package org.kindredhq.discussions.core.repository
 
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
 import org.kindredhq.discussions.core.domain.model.Discussion
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
  * Defines the persistence contract for [Discussion] entities.
+ * Implementations may perform optimistic locking or concurrency checks.
  *
  * This interface describes storage and retrieval operations only.
  * It does not define authorization rules, moderation policy,
@@ -27,8 +28,7 @@ import org.kindredhq.discussions.core.domain.model.Discussion
  * - Validation prior to persistence
  */
 @OptIn(ExperimentalUuidApi::class)
-interface DiscussionRepository {
-
+public interface DiscussionRepository {
     /* =======================
        Creation
        ======================= */

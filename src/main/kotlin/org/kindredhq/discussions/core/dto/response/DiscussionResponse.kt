@@ -1,17 +1,18 @@
 package org.kindredhq.discussions.core.dto.response
 
+import kotlinx.serialization.Serializable
+import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.Serializable
-import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
+import kotlinx.serialization.SerialName
 
 /**
  * Response projection representing a [Discussion] entity.
  *
  * This DTO exposes the core state of a discussion entry as defined
- * by the domain model. It does not include engagement metrics,
- * author profile enrichment, or implementation-specific projections.
+ * by the domain model. It does not include engagement metrics, enrichment data,
+ * moderation metadata, or implementation-specific projections.
  *
  * Visibility rules, filtering behavior, and authorization checks
  * are the responsibility of the implementing service.
@@ -42,16 +43,16 @@ import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
  */
 @OptIn(ExperimentalUuidApi::class)
 @Serializable
-data class DiscussionResponse(
-    val id: Uuid,
-    val targetId: Uuid?,
-    val parentId: Uuid?,
-    val userId: String,
-    val body: String,
-    val language: String?,
-    val status: DiscussionsStatus,
-    val isPinned: Boolean,
-    val isLocked: Boolean,
-    val createdAt: Instant,
-    val updatedAt: Instant?,
+public data class DiscussionResponse(
+    @SerialName("id") val id: Uuid,
+    @SerialName("target_id") val targetId: Uuid?,
+    @SerialName("parent_id") val parentId: Uuid?,
+    @SerialName("user_id") val userId: String,
+    @SerialName("body") val body: String,
+    @SerialName("language") val language: String?,
+    @SerialName("status") val status: DiscussionsStatus,
+    @SerialName("is_pinned") val isPinned: Boolean,
+    @SerialName("is_locked") val isLocked: Boolean,
+    @SerialName("created_at") val createdAt: Instant,
+    @SerialName("updated_at") val updatedAt: Instant?,
 )

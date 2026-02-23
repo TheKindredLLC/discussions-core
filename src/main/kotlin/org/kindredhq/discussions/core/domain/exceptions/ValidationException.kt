@@ -3,7 +3,7 @@ package org.kindredhq.discussions.core.domain.exceptions
 /**
  * Exception thrown when structural validation of a request fails.
  *
- * This exception indicates that one or more domain invariants
+ * This exception indicates that one or more structural invariants
  * were violated during validation of a create or update operation.
  *
  * Validation performed by this library is limited to structural
@@ -21,6 +21,8 @@ package org.kindredhq.discussions.core.domain.exceptions
  *
  * @property errors A list of field-level validation failures.
  */
-class ValidationException(
+public class ValidationException(
     val errors: List<FieldError>,
-) : DiscussionsCoreException("Validation failed")
+) : DiscussionsCoreException(
+        "Validation failed: ${errors.joinToString { it.field }}",
+    )

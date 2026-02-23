@@ -1,10 +1,13 @@
 package org.kindredhq.discussions.core.domain.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.Serializable
+
+private const val DISCUSSION_STRING_LIMIT = 20
 
 /**
  * Represents a single discussion entry within a threaded discussion.
@@ -52,30 +55,32 @@ import kotlinx.serialization.Serializable
  * @property updatedAt Timestamp of the most recent content update.
  * @property deletedAt Timestamp when the discussion was deleted, if applicable.
  * @property purgeAt Timestamp indicating when the discussion is eligible for permanent removal.
+ *
+ * This model does not enforce state transition rules or cross-field invariants.
  */
 @Serializable
 @OptIn(ExperimentalUuidApi::class)
-data class Discussion(
-    val id: Uuid,
-    val targetId: Uuid? = null,
-    val parentId: Uuid? = null,
-    val userId: String,
-    val body: String,
-    val language: String? = null,
+public data class Discussion(
+    @SerialName("id") val id: Uuid,
+    @SerialName("target_id") val targetId: Uuid? = null,
+    @SerialName("parent_id") val parentId: Uuid? = null,
+    @SerialName("user_id") val userId: String,
+    @SerialName("body") val body: String,
+    @SerialName("language") val language: String? = null,
     // Moderation
-    val status: DiscussionsStatus = DiscussionsStatus.VISIBLE,
-    val reason: String? = null,
-    val moderatedBy: String? = null,
-    val moderatedAt: Instant? = null,
+    @SerialName("status") val status: DiscussionsStatus = DiscussionsStatus.VISIBLE,
+    @SerialName("reason") val reason: String? = null,
+    @SerialName("moderated_by") val moderatedBy: String? = null,
+    @SerialName("moderated_at") val moderatedAt: Instant? = null,
     // Reporting
-    val reportedBy: Set<String> = emptySet(),
+    @SerialName("reported_by") val reportedBy: Set<String> = emptySet(),
     // Admin
-    val isPinned: Boolean = false,
-    val isLocked: Boolean = false,
-    val createdAt: Instant,
-    val updatedAt: Instant? = null,
-    val deletedAt: Instant? = null,
-    val purgeAt: Instant? = null,
+    @SerialName("is_pinned") val isPinned: Boolean = false,
+    @SerialName("is_locked") val isLocked: Boolean = false,
+    @SerialName("created_at") val createdAt: Instant,
+    @SerialName("updated_at") val updatedAt: Instant? = null,
+    @SerialName("deleted_at") val deletedAt: Instant? = null,
+    @SerialName("purge_at") val purgeAt: Instant? = null,
 ) {
     override fun toString(): String =
         "Discussion(" +
@@ -83,7 +88,7 @@ data class Discussion(
             "targetId=$targetId, " +
             "parentId=$parentId, " +
             "userId='$userId', " +
-            "body='${body.take(20)}...', " +
+            "body='${body.take(DISCUSSION_STRING_LIMIT)}...', " +
             "lang='$language', " +
             "status=$status, " +
             "createdAt=$createdAt" +

@@ -1,10 +1,10 @@
 package org.kindredhq.discussions.core.repository
 
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import org.kindredhq.discussions.core.domain.enums.ReportStatus
 import org.kindredhq.discussions.core.domain.model.Report
 import org.kindredhq.discussions.core.domain.model.ReportQuery
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
  * Defines the persistence contract for [Report] entities.
@@ -20,8 +20,7 @@ import org.kindredhq.discussions.core.domain.model.ReportQuery
  * - Transaction management
  */
 @OptIn(ExperimentalUuidApi::class)
-interface ReportRepository {
-
+public interface ReportRepository {
     /* =======================
        Creation
        ======================= */
@@ -67,7 +66,7 @@ interface ReportRepository {
      * @return A list of reports matching the query. If no reports match,
      *         an empty list must be returned.
      */
-    suspend fun list(que: ReportQuery): List<Report>
+    suspend fun list(query: ReportQuery): List<Report>
 
     /* =======================
        Mutation
@@ -75,6 +74,7 @@ interface ReportRepository {
 
     /**
      * Updates the lifecycle status of a report.
+     * Implementations may enforce optimistic locking or state transition validation.
      *
      * @param id Report identifier.
      * @param status New status.

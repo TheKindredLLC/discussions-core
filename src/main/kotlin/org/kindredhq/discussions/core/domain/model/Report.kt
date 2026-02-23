@@ -1,10 +1,11 @@
 package org.kindredhq.discussions.core.domain.model
 
+import kotlinx.serialization.Serializable
 import org.kindredhq.discussions.core.domain.enums.ReportStatus
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
 /**
  * Represents a report submitted against a discussion or other target entity.
@@ -21,15 +22,16 @@ import kotlinx.serialization.Serializable
  * @property createdAt Timestamp when the report was created.
  * @property createdBy Identifier of the user who submitted the report.
  * @property status Current lifecycle state of the report.
+ *
+ * This model does not enforce state transition rules.
  */
 @OptIn(ExperimentalUuidApi::class)
 @Serializable
-data class Report
-    constructor(
-        val id: Uuid,
-        val targetId: Uuid,
-        val reason: String,
-        val createdAt: Instant,
-        val createdBy: String,
-        val status: ReportStatus = ReportStatus.OPEN,
+public data class Report(
+        @SerialName("id") val id: Uuid,
+        @SerialName("target_id") val targetId: Uuid,
+        @SerialName("reason") val reason: String,
+        @SerialName("created_at") val createdAt: Instant,
+        @SerialName("created_by") val createdBy: String,
+        @SerialName("status") val status: ReportStatus = ReportStatus.OPEN,
     )
