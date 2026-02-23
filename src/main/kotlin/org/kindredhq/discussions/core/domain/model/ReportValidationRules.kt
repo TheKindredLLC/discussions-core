@@ -1,6 +1,7 @@
 package org.kindredhq.discussions.core.domain.model
 
 private const val MAX_REPORT_REASON_LENGTH = 1000
+
 /**
  * Configuration rules for structural validation of [Report] requests.
  *

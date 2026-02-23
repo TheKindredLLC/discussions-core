@@ -1,9 +1,9 @@
 package org.kindredhq.discussions.core.dto.request
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.SerialName
 
 /**
  * Request payload for creating a new [Discussion].

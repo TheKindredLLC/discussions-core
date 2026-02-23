@@ -1,11 +1,11 @@
 package org.kindredhq.discussions.core.dto.response
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.kindredhq.discussions.core.domain.enums.DiscussionsStatus
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlinx.serialization.SerialName
 
 /**
  * Response projection representing a [Discussion] entity.

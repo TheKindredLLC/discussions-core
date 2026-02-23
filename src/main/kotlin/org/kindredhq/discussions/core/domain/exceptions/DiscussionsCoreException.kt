@@ -1,7 +1,5 @@
 package org.kindredhq.discussions.core.domain.exceptions
 
-
-
 /**
  * Base exception for all domain-level failures originating from
  * the discussions core library.
